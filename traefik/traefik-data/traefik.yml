@@ -24,11 +24,11 @@ entryPoints:
     address: ":443"
     http:
       tls:
-        certResolver: cloudflare
+        certResolver: letsencrypt
 
 # Certificate Resolvers (Let's Encrypt with Cloudflare DNS Challenge)
 certificatesResolvers:
-  cloudflare:
+  letsencrypt:
     acme:
       email: "sam.oehlert@gmail.com"
       storage: /letsencrypt/acme.json
