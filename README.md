@@ -68,7 +68,7 @@ The setup involves several layers:
 
 ## Accessing Services
 
-1.  **DNS:** Ensure that the DNS records (A and/or AAAA) for all desired hostnames (`traefik.yourdomain.com`, `portainer.yourdomain.com`, etc.) point to the **Tailscale IP address of the `tailscale` container**.
+1.  **DNS:** Ensure that the DNS records (CNAME, or A and/or AAAA) for all desired hostnames (`traefik.yourdomain.com`, `portainer.yourdomain.com`, etc.) point to the **Tailscale IP address of the `tailscale` container**. Make sure you are not using Cloudflare proxying.
 2.  **Tailscale Connection:** Connect the device you are browsing from to your Tailscale network.
 3.  **Access:** Navigate to `https://service.yourdomain.com` in your browser.
 
