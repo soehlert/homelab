@@ -32,7 +32,7 @@ http:
         servers:
           - url: "https://192.168.2.21:8006"
         passHostHeader: true
-        serversTransport: proxmox-transport
+        serversTransport: insecure-transport
     homepage-svc:
       loadbalancer:
         servers:
@@ -41,8 +41,9 @@ http:
       loadbalancer:
         servers:
           - url: "https://192.168.2.43:8443"
+        serversTransport: insecure-transport
 
   serversTransports:
-    proxmox-transport:
+    insecure-transport:
       insecureSkipVerify: true
 

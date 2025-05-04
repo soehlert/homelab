@@ -68,7 +68,7 @@ The setup involves several layers:
 
 ## Accessing Services
 
-1.  **DNS:** Ensure that the DNS records (CNAME, or A and/or AAAA) for all desired hostnames (`traefik.yourdomain.com`, `portainer.yourdomain.com`, etc.) point to the **Tailscale IP address of the `tailscale` container**. Make sure you are not using Cloudflare proxying.
+1.  **DNS:** Ensure that the DNS records (A and/or AAAA) for all desired hostnames (`traefik.yourdomain.com`, `portainer.yourdomain.com`, etc.) point to the **Tailscale IP address of the `tailscale` container**. Make sure you are not using Cloudflare proxying.
 2.  **Tailscale Connection:** Connect the device you are browsing from to your Tailscale network.
 3.  **Access:** Navigate to `https://service.yourdomain.com` in your browser.
 
@@ -102,18 +102,14 @@ There are two main ways to add services:
             servers:
               - url: "https://192.168.2.21:8006"
             passHostHeader: true
-            serversTransport: proxmox-transport
-            homepage-svc:
+            serversTransport: insecure-transport
+        homepage-svc:
           loadbalancer:
             servers:
               - url: "http://192.168.2.31:3000"
      ```
-5.   **Add Transport:** Under `http.serversTransports`, add a new transport section (OPTIONAL - YOU MAY NOT NEED THIS):
-     ```yaml
-     serversTransports:
-       proxmox-transport:
-         insecureSkipVerify: true
-     ```
+5.   **Add Transport:** Under `http.services.loadbalancer`, add  insecure-transport if the backend host has a self signed cert already.
+
 ### Method 2: Portainer
 1.   **Add Stack:** Use the web editor to add a docker compose file like this:
      ```yaml
