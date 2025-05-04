@@ -1,0 +1,39 @@
+http:
+  middlewares:
+    securityHeaders:
+      headers:
+        frameDeny: true
+        browserXssFilter: true
+        contentTypeNosniff: true
+        stsSeconds: 31536000 # 1 year HSTS
+        stsIncludeSubdomains: true
+        stsPreload: true
+
+  routers:
+    proxmox-rtr:
+      rule: "Host(`prox.soehlert.com`)"
+      entryPoints:
+        - websecure
+      service: proxmox-svc
+    homepage-rtr:
+      rule: "Host(`homepage.soehlert.com`)"
+      entryPoints:
+        - websecure
+      service: homepage-svc
+
+  services:
+    proxmox-svc:
+      loadBalancer:
+        servers:
+          - url: "https://192.168.2.21:8006"
+        passHostHeader: true
+        serversTransport: proxmox-transport
+    homepage-svc:
+      loadbalancer:
+        servers:
+          - url: "http://192.168.2.31:3000"
+
+  serversTransports:
+    proxmox-transport:
+      insecureSkipVerify: true
+
