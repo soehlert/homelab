@@ -20,6 +20,11 @@ http:
       entryPoints:
         - websecure
       service: homepage-svc
+    unifi-rtr:
+      rule: "Host(`unifi.soehlert.com`)"
+      entryPoints:
+        - websecure
+      service: unifi-svc
 
   services:
     proxmox-svc:
@@ -32,6 +37,10 @@ http:
       loadbalancer:
         servers:
           - url: "http://192.168.2.31:3000"
+    unifi-svc:
+      loadbalancer:
+        servers:
+          - url: "https://192.168.2.43:8443"
 
   serversTransports:
     proxmox-transport:
