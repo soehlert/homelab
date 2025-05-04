@@ -114,3 +114,28 @@ There are two main ways to add services:
        proxmox-transport:
          insecureSkipVerify: true
      ```
+### Method 2: Portainer
+1.   **Add Stack:** Use the web editor to add a docker compose file like this:
+     ```yaml
+     services:
+       whoami:
+         image: traefik/whoami:latest
+         container_name: whoami-app
+         networks:
+           - traefik-net
+         restart: unless-stopped
+         labels:
+           # --- Traefik Labels ---
+           - "traefik.enable=true"
+
+           # Router definition
+           - "traefik.http.routers.whoami-rtr.rule=Host(`whoami.soehlert.com`)"
+           - "traefik.http.routers.whoami-rtr.entrypoints=websecure"
+           - "traefik.http.routers.whoami-rtr.service=whoami-svc "
+
+           # Service definition (points to the container's intern al port)
+           - "traefik.http.services.whoami-svc.loadbalancer.server.port=80"
+     networks:
+       traefik-net:
+         external: true
+     ```
