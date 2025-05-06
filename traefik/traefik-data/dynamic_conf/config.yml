@@ -9,8 +9,9 @@ http:
         stsIncludeSubdomains: true
         stsPreload: true
     pihole-add-admin:
-      addPrefix:
-        prefix: "/admin"
+      replacePathRegex:
+        regex: "^/?$"
+        replacement: "/admin/"
 
   routers:
     proxmox-rtr:
