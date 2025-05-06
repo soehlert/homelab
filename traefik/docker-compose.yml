@@ -40,7 +40,7 @@ services:
       - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.${MY_DOMAIN}`)"
       - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
       - "traefik.http.routers.traefik-dashboard.service=api@internal"
-      - "traefik.http.routers.traefik-dashboard.tls.certresolver=cloudflare"
+      - "traefik.http.routers.traefik-dashboard.tls.certresolver=letsencrypt"
       - "traefik.http.services.api@internal.loadbalancer.server.port=8080"
     restart: unless-stopped
     depends_on:
@@ -59,7 +59,7 @@ services:
       - "traefik.http.routers.portainer.rule=Host(`portainer.${MY_DOMAIN}`)"
       - "traefik.http.routers.portainer.entrypoints=websecure"
       - "traefik.http.routers.portainer.service=portainer-svc"
-      - "traefik.http.routers.portainer.tls.certresolver=cloudflare"
+      - "traefik.http.routers.portainer.tls.certresolver=letsencrypt"
       - "traefik.http.services.portainer-svc.loadbalancer.server.port=9000"
     restart: unless-stopped
     depends_on:
