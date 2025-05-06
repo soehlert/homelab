@@ -135,3 +135,16 @@ There are two main ways to add services:
        traefik-net:
          external: true
      ```
+2.   **Add Stack HTTPS:** Use the web editor to include a docker compose file but use these labels:
+     ```yaml
+        labels:
+          - "traefik.enable=true"
+          - "traefik.http.routers.pihole2-rtr.rule=Host(`pihole2.soehlert.com`)"
+          - "traefik.http.routers.pihole2-rtr.entrypoints=websecure"
+          - "traefik.http.routers.pihole2-rtr.service=pihole2-svc"
+          - "traefik.http.routers.pihole2-rtr.tls.certresolver=letsencrypt"
+          - "traefik.http.services.pihole2-svc.loadbalancer.server.port=443"
+          - "traefik.http.services.pihole2-svc.loadbalancer.server.scheme=https"
+          - "traefik.http.services.pihole2-svc.loadbalancer.serversTransport=pihole-insecure-transport@docker"
+          - "traefik.http.serversTransports.pihole-insecure-transport.insecureSkipVerify=true"
+     ```
