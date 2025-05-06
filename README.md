@@ -145,6 +145,5 @@ There are two main ways to add services:
           - "traefik.http.routers.pihole2-rtr.tls.certresolver=letsencrypt"
           - "traefik.http.services.pihole2-svc.loadbalancer.server.port=443"
           - "traefik.http.services.pihole2-svc.loadbalancer.server.scheme=https"
-          - "traefik.http.services.pihole2-svc.loadbalancer.serversTransport=pihole-insecure-transport@docker"
-          - "traefik.http.serversTransports.pihole-insecure-transport.insecureSkipVerify=true"
+          - "traefik.http.services.pihole2-svc.loadbalancer.serversTransport=insecure-transport@file"
      ```
