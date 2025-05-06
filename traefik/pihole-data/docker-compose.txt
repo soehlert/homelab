@@ -25,6 +25,7 @@ services:
       - "traefik.http.services.pihole2-svc.loadbalancer.server.port=443"
       - "traefik.http.services.pihole2-svc.loadbalancer.server.scheme=https"
       - "traefik.http.services.pihole2-svc.loadbalancer.serversTransport=insecure-transport@file"
+      - "traefik.http.routers.pihole2-rtr.middlewares=pihole-add-admin@file"
 
 networks:
   traefik-net:

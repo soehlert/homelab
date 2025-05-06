@@ -8,6 +8,9 @@ http:
         stsSeconds: 31536000 # 1 year HSTS
         stsIncludeSubdomains: true
         stsPreload: true
+    pihole-add-admin:
+      addPrefix:
+        prefix: "/admin"
 
   routers:
     proxmox-rtr:
@@ -29,6 +32,8 @@ http:
       rule: "Host(`pihole1.soehlert.com`)"
       entrypoints:
         - websecure
+      middlewares:
+        - pihole-add-admin@file
       service: pihole1-svc
 
   services:
