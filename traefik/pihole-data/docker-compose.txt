@@ -2,15 +2,31 @@ services:
   pihole:
     container_name: pihole2
     image: pihole/pihole:latest
+    networks:
+      - traefik-net
     ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "80:80/tcp"
-      - "443:443/tcp"
+      - "5353:53/tcp"
+      - "5353:53/udp"
+      - "8008:80/tcp"
+      - "6443:443/tcp"
     environment:
       TZ: 'America/Chicago'
       FTLCONF_webserver_api_password: ${FTLCONF_WEBSERVER_API_PASSWORD}
       FTLCONF_dns_listeningMode: 'all'
     volumes:
-      - './pihole/etc/pihole:/etc/pihole'
+      - './pihole-data/etc/pihole:/etc/pihole'
     restart: unless-stopped
+    labels:
+      # --- Traefik Labels ---
+      - "traefik.enable=true"
+
+      # Router definition
+      - "traefik.http.routers.whoami-rtr.rule=Host(`whoami.soehlert.com`)"
+      - "traefik.http.routers.whoami-rtr.entrypoints=websecure"
+      - "traefik.http.routers.whoami-rtr.service=whoami-svc "
+
+      # Service definition (points to the container's intern al port)
+      - "traefik.http.services.whoami-svc.loadbalancer.server.port=80"
+networks:
+  traefik-net:
+    external: true
