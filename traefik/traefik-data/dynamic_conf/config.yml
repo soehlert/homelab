@@ -50,7 +50,7 @@ http:
     pihole1-svc:
       loadbalancer:
         servers:
-          - url: "http://192.168.2.42/admin""
+          - url: "http://192.168.2.42/admin"
 
   serversTransports:
     insecure-transport:
