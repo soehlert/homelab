@@ -25,6 +25,11 @@ http:
       entryPoints:
         - websecure
       service: unifi-svc
+    pihole1-rtr:
+      rule: "Host(`pihole1.soehlert.com`)"
+      entrypoints:
+        - websecure
+      service: pihole1-svc
 
   services:
     proxmox-svc:
@@ -42,6 +47,10 @@ http:
         servers:
           - url: "https://192.168.2.43:8443"
         serversTransport: insecure-transport
+    pihole1-svc:
+      loadbalancer:
+        servers:
+          - url: "http://192.168.2.42/admin""
 
   serversTransports:
     insecure-transport:
