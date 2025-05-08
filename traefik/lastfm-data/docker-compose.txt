@@ -13,7 +13,7 @@ services:
         - LASTFM_API_SECRET=${LASTFM_API_SECRET}
         - LASTFM_USERNAME=${LASTFM_USERNAME}
         # Override if you want
-        - APP_PORT: int = ${APP_PORT}
-        - LOG_LEVEL: str = ${LOG_LEVEL}
+        - APP_PORT=${APP_PORT}
+        - LOG_LEVEL=${LOG_LEVEL}
         - UPDATE_INTERVAL_SECONDS=${UPDATE_INTERVAL_SECONDS}  # defaults to 60 seconds
         - PAUSE_TIMEOUT_SECONDS=${PAUSE_TIMEOUT_SECONDS} # how long until the pause is considered a stop - default 10s
