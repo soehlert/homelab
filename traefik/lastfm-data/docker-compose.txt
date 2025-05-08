@@ -1,0 +1,19 @@
+services:
+  plex-lastfm-now-playing:
+    image: ghcr.io/soehlert/plex_lastfm_now_playing:latest
+    container_name: plex_lastfm_now_playing
+    restart: unless-stopped
+    ports:
+        - "8000:8000"
+    volumes:
+        - ./lastfm_data/.env:/app/.env
+    # Set up to read env vars from portainer
+    environment:
+        - LASTFM_API_KEY=${LAST_API_KEY}
+        - LASTFM_API_SECRET=${LASTFM_API_SECRET}
+        - LASTFM_USERNAME=${LASTFM_USERNAME}
+        # Override if you want
+        - APP_PORT: int = ${APP_PORT}
+        - LOG_LEVEL: str = ${LOG_LEVEL}
+        - UPDATE_INTERVAL_SECONDS=${UPDATE_INTERVAL_SECONDS}  # defaults to 60 seconds
+        - PAUSE_TIMEOUT_SECONDS=${PAUSE_TIMEOUT_SECONDS} # how long until the pause is considered a stop - default 10s
