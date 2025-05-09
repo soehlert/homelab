@@ -6,14 +6,24 @@ services:
     ports:
         - "8000:8000"
     volumes:
-        - ./lastfm_data/.env:/app/.env
+        - ./lastfm-data/.env:/app/.env
     # Set up to read env vars from portainer
     environment:
-        - LASTFM_API_KEY=${LAST_API_KEY}
+        - LASTFM_API_KEY=${LASTFM_API_KEY}
         - LASTFM_API_SECRET=${LASTFM_API_SECRET}
         - LASTFM_USERNAME=${LASTFM_USERNAME}
-        # Override if you want
-        - APP_PORT=${APP_PORT}
-        - LOG_LEVEL=${LOG_LEVEL}
-        - UPDATE_INTERVAL_SECONDS=${UPDATE_INTERVAL_SECONDS}  # defaults to 60 seconds
-        - PAUSE_TIMEOUT_SECONDS=${PAUSE_TIMEOUT_SECONDS} # how long until the pause is considered a stop - default 10s
+    networks:
+      - traefik-net
+    labels:
+      # --- Traefik Labels ---
+      - "traefik.enable=true"
+      # Router definition
+      - "traefik.http.routers.plex-scrobbler-rtr.rule=Host(`plex-scrobbler.soehlert.com`)"
+      - "traefik.http.routers.plex-scrobbler-rtr.entrypoints=websecure"
+      - "traefik.http.routers.plex-scrobbler-rtr.service=plex-scrobbler-svc"
+      # Service definition (points to the container's internal port)
+      - "traefik.http.services.plex-scrobbler-svc.loadbalancer.server.port=8000"
+
+networks:
+  traefik-net:
+    external: true
