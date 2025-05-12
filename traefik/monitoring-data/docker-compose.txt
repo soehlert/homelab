@@ -68,6 +68,9 @@ services:
       - "traefik.http.routers.grafana-rtr.entrypoints=websecure"
       - "traefik.http.routers.grafana-rtr.service=grafana-svc"
       - "traefik.http.services.grafana-svc.loadbalancer.server.port=3000"
+      - "traefik.http.middlewares.grafana-headers.headers.customRequestHeaders.X-Forwarded-Proto=https"
+      - "traefik.http.middlewares.grafana-headers.headers.customRequestHeaders.X-Forwarded-Host=grafana.soehlert.com"
+      - "traefik.http.routers.grafana-rtr.middlewares=grafana-headers"
 
 volumes:
   prometheus_data:
