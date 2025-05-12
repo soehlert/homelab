@@ -69,20 +69,6 @@ services:
       - "traefik.http.routers.grafana-rtr.service=grafana-svc"
       - "traefik.http.services.grafana-svc.loadbalancer.server.port=3000"
 
-  prometheus-influxdb-connector:
-    image: influxdb/influxdb-prometheus-remote-write:latest
-    container_name: prometheus-influxdb-connector
-    restart: unless-stopped
-    environment:
-      - INFLUXDB_URL=http://influxdb:8086
-      - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
-      - INFLUXDB_ORG=${INFLUXDB_ORG}
-      - INFLUXDB_BUCKET=${INFLUXDB_BUCKET}
-    depends_on:
-      - influxdb
-    networks:
-      - monitoring-net
-
 volumes:
   prometheus_data:
   influxdb_data:
