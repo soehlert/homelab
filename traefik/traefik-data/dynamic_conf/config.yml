@@ -12,6 +12,10 @@ http:
       replacePathRegex:
         regex: "^/?$"
         replacement: "/admin/"
+    hass-headers:
+      headers:
+        customRequestHeaders:
+          Host: "192.168.2.24:8123"
 
   routers:
     proxmox-rtr:
@@ -40,6 +44,8 @@ http:
       rule: "Host(`hass.soehlert.com`)"
       entrypoints:
         - websecure
+      middlewares:
+        - hass-headers
       service: hass-svc
 
   services:
