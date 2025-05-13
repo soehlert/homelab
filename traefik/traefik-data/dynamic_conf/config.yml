@@ -36,6 +36,11 @@ http:
       middlewares:
         - pihole-add-admin@file
       service: pihole1-svc
+    hass-rtr:
+      rule: "Host(`hass.soehlert.com`)"
+      entrypoints:
+        - websecure
+      service: hass-svc
 
   services:
     proxmox-svc:
@@ -57,6 +62,10 @@ http:
       loadbalancer:
         servers:
           - url: "http://192.168.2.42"
+    hass-svc:
+      loadbalancer:
+        servers:
+          - url: "http://192.168.2.24:8123"
 
   serversTransports:
     insecure-transport:
