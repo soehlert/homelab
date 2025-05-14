@@ -1,0 +1,28 @@
+services:
+  tokeping:
+    image: ghcr.io/soehlert/tokeping:latest
+    container_name: tokeping
+    restart: unless-stopped
+    volumes:
+      - ${TOKEPING_DATA_PATH:-/opt/homelab/traefik/tokeping-data/config.yaml}:/app/config.yaml
+      - ${TOKEPING_DATA_PATH:-/opt/homelab/traefik/tokeping-data/logs}:/var/log/tokeping
+    environment:
+      - INFLUXDB_URL=${INFLUXDB_URL}
+      - INFLUXDB_TOKEN=${INFLUXDB_ADMIN_TOKEN}
+      - INFLUXDB_ORG=${INFLUXDB_ORG}
+      - INFLUXDB_BUCKET=${INFLUXDB_BUCKET}
+    ports:
+      - "8080:8080"
+    networks:
+      - tokeping_network
+      - traefik_network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tokeping-rtr.rule=Host(`tokeping.soehlert.com`)"
+      - "traefik.http.routers.tokeping-rtr.entrypoints=websecure"
+      - "traefik.http.routers.tokeping-rtr.service=tokeping-svc"
+      - "traefik.http.services.tokeping-svc.loadbalancer.server.port=8080"
+
+networks:
+  tokeping_network:
+    driver: bridge
