@@ -12,14 +12,6 @@ http:
       replacePathRegex:
         regex: "^/?$"
         replacement: "/admin/"
-    hass-headers:
-      headers:
-        customRequestHeaders:
-          X-Forwarded-Proto: "https"
-          X-Forwarded-Host: "hass.soehlert.com"
-          X-Forwarded-For: "192.168.2.24"
-        hostsProxyHeaders:
-          - "X-Forwarded-Host"
 
   routers:
     proxmox-rtr:
@@ -39,17 +31,15 @@ http:
       service: unifi-svc
     pihole1-rtr:
       rule: "Host(`pihole1.soehlert.com`)"
-      entrypoints:
+      entryPoints:
         - websecure
       middlewares:
         - pihole-add-admin@file
       service: pihole1-svc
     hass-rtr:
       rule: "Host(`hass.soehlert.com`)"
-      entrypoints:
+      entryPoints:
         - websecure
-      middlewares:
-        - hass-headers@file
       service: hass-svc
 
   services:
