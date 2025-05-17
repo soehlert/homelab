@@ -13,7 +13,7 @@ datasources:
     url: http://influxdb:8086
     jsonData:
       version: Flux
-      organization: casa
-      defaultBucket: tokeping
+      organization: ${INFLUXDB_ORG}
+      defaultBucket: ${INFLUXDB_BUCKET}
     secureJsonData:
       token: ${INFLUXDB_TOKEN}

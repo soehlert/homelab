@@ -46,6 +46,21 @@ http:
       entryPoints:
         - websecure
       service: netbox-svc
+    grafana-rtr:
+      rule: "Host(`grafana.soehlert.com`)"
+      entryPoints:
+        - websecure
+      service: grafana-svc
+    prometheus-rtr:
+      rule: "Host(`prom.soehlert.com`)"
+      entryPoints:
+        - websecure
+      service: prometheus-svc
+    influx-rtr:
+      rule: "Host(`influx.soehlert.com`)"
+      entryPoints:
+        - websecure
+      service: influx-svc
 
   services:
     proxmox-svc:
@@ -71,11 +86,22 @@ http:
       loadbalancer:
         servers:
           - url: "http://192.168.2.24:8123"
-
     netbox-svc:
       loadbalancer:
         servers:
           - url: "http://192.168.2.10:8000"
+    grafana-svc:
+      loadbalancer:
+        servers:
+          - url: "http://192.168.2.15:3030"
+    prometheus-svc:
+      loadbalancer:
+        servers:
+          - url: "http://192.168.2.15:9090"
+    influx-svc:
+      loadbalancer:
+        servers:
+          - url: "http://192.168.2.15:8086"
 
   serversTransports:
     insecure-transport:
