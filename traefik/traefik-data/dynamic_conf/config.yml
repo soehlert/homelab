@@ -41,6 +41,11 @@ http:
       entryPoints:
         - websecure
       service: hass-svc
+    netbox-rtr:
+      rule: "Host(`netbox.soehlert.com`)"
+      entryPoints:
+        - websecure
+      service: netbox-svc
 
   services:
     proxmox-svc:
@@ -66,6 +71,11 @@ http:
       loadbalancer:
         servers:
           - url: "http://192.168.2.24:8123"
+
+    netbox-svc:
+      loadbalancer:
+        servers:
+          - url: "http://192.168.2.10:8000"
 
   serversTransports:
     insecure-transport:

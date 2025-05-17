@@ -14,8 +14,7 @@ services:
     ports:
       - "8080:8080"
     networks:
-      - tokeping_network
-      - traefik_network
+      - traefik-net
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.tokeping-rtr.rule=Host(`tokeping.soehlert.com`)"
@@ -24,5 +23,7 @@ services:
       - "traefik.http.services.tokeping-svc.loadbalancer.server.port=8080"
 
 networks:
+  traefik-net:
+    external: true
   tokeping_network:
     driver: bridge
