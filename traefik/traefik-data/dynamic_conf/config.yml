@@ -101,7 +101,7 @@ http:
     netbox-svc:
       loadbalancer:
         servers:
-          - url: "https://192.168.2.43:8443"
+          - url: "https://192.168.2.10"
         serversTransport: insecure-transport
 
   serversTransports:
