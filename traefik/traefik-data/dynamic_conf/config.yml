@@ -86,10 +86,6 @@ http:
       loadbalancer:
         servers:
           - url: "http://192.168.2.24:8123"
-    netbox-svc:
-      loadbalancer:
-        servers:
-          - url: "http://192.168.2.10:8000"
     grafana-svc:
       loadbalancer:
         servers:
@@ -102,6 +98,11 @@ http:
       loadbalancer:
         servers:
           - url: "http://192.168.2.15:8086"
+    netbox-svc:
+      loadbalancer:
+        servers:
+          - url: "https://192.168.2.43:8443"
+        serversTransport: insecure-transport
 
   serversTransports:
     insecure-transport:
