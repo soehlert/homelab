@@ -12,6 +12,10 @@ http:
       replacePathRegex:
         regex: "^/?$"
         replacement: "/admin/"
+    netbox-headers:
+      headers:
+        customRequestHeaders:
+          X-Forwarded-Proto: "https"
 
   routers:
     proxmox-rtr:
@@ -45,6 +49,8 @@ http:
       rule: "Host(`netbox.soehlert.com`)"
       entryPoints:
         - websecure
+      middlewares:
+        - netbox-headers
       service: netbox-svc
     grafana-rtr:
       rule: "Host(`grafana.soehlert.com`)"
@@ -107,4 +113,3 @@ http:
   serversTransports:
     insecure-transport:
       insecureSkipVerify: true
-
