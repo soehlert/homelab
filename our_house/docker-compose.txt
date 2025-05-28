@@ -1,0 +1,17 @@
+services:
+  django:
+    image: ghcr.io/soehlert/our-house:latest
+    ports:
+      - "8021:8000"
+    volumes:
+      - house_tracker_db:/app/data
+      - house_tracker_media:/app/media
+    environment:
+      - DEBUG=${DJANGO_DEBUG}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+      - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS}
+    restart: unless-stopped
+
+volumes:
+  house_tracker_db:
+  house_tracker_media:

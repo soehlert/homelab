@@ -10,10 +10,6 @@ api:
   dashboard: true
   insecure: false
 
-serversTransports:
-  insecure-transport:
-    insecureSkipVerify: true
-
 # EntryPoints (HTTP and HTTPS)
 entryPoints:
   web:
